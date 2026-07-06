@@ -1,6 +1,5 @@
 import React from 'react'
 import "./Footer.css";
-import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import FaceBookOutLineIcon from "@mui/icons-material/FacebookOutlined";
