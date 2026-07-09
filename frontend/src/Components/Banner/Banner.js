@@ -2,13 +2,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "../../utils/axios";
 import requests from "../../utils/request";
-// import "./Banner.css";
+import "./Banner.css";
 const Banner = () => {
   const [movie, setMovie] = useState({});
   useEffect(() => {
     (async () => {
       try {
         const request = await axios.get(requests.fetchNetflixOriginals);
+        console.log(request);
         setMovie(
           request.data.results[
             Math.floor(Math.random() * request.data.results.length)
@@ -19,6 +20,9 @@ const Banner = () => {
       }
     })();
   }, []);
+  function truncate(str, n) {
+    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+  }
   return (
     <div
       className="banner"
@@ -37,9 +41,7 @@ const Banner = () => {
           <button className="banner__button play">Play</button>
           <button className="banner__button">My List</button>
         </div>
-        {/* <h1 className="banner__description">
-          {truncate(movie?.overview, 150)}
-        </h1> */}
+        <h1 className="banner__description">{truncate(movie?.overview, 150)} </h1>
       </div>
       <div className="banner__fadeBottom" />
     </div>
