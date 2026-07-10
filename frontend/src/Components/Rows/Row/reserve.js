@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
 import "./Row.css";
 import axios from "../../../utils/axios";
+import requests from "../../../utils/request";
 // import movieTrailer from "movie-trailer";
 // import YouTube from "react-youtube";
-const Row = ({ title, fetchUrl, isLargeRow }) => {
+
+const Row = ({ title, fetchNetflixOriginals, isLargeRow }) => {
   const [movies, setMovies] = useState([]);
   // const [trailerUrl, setTrailerUrl] = useState("");
   const base_url = "https://image.tmdb.org/t/p/original/";
-
-  useEffect(() => {
-    (async () => {
-      try {
-        // Use the dynamic fetchUrl prop here
-        const request = await axios.get(fetchUrl);
-        setMovies(request.data.results);
-      } catch (error) {
-        console.log("error", error);
-      }
-    })();
-  }, [fetchUrl]); 
+ useEffect(() => {
+   (async () => {
+     try {
+       console.log(fetchNetflixOriginals);
+       const request = await axios.get(requests.fetchNetflixOriginals);
+       console.log(request);
+       setMovies(request.data.results);
+     } catch (error) {
+       console.log("error", error);
+     }
+   })();
+ }, []);
 
   // const handleClick = (movie) => {
   //   if (trailerUrl) {
@@ -42,18 +44,17 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
   //     autoplay: 1,
   //   },
   // };
-
   return (
     <div className="row">
-      <h2>{title}</h2>
+      <h1>{title}</h1>
       <div className="row_posters">
         {movies?.map((movie, index) => (
           <img
             // onClick={() => handleClick(movie)}
             key={index}
             src={`${base_url}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
-            alt={movie.name || movie.title}
-            className={`row_poster ${isLargeRow ? "row_posterLarge" : ""}`}
+            alt={movie.name}
+            className={`row_poster ${isLargeRow && "row_posterLarge"}`}
           />
         ))}
       </div>
