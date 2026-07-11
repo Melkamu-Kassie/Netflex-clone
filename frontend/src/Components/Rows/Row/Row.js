@@ -7,11 +7,9 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
   const [movies, setMovies] = useState([]);
   const [trailerUrl, setTrailerUrl] = useState("");
   const base_url = "https://image.tmdb.org/t/p/original/";
-
   useEffect(() => {
     (async () => {
       try {
-        // Use the dynamic fetchUrl prop here
         const request = await axios.get(fetchUrl);
         setMovies(request.data.results);
       } catch (error) {
@@ -19,7 +17,6 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
       }
     })();
   }, [fetchUrl]); 
-
   const handleClick = (movie) => {
     if (trailerUrl) {
       setTrailerUrl("");
@@ -42,7 +39,6 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
       autoplay: 1,
     },
   };
-
   return (
     <div className="row">
       <h2>{title}</h2>
